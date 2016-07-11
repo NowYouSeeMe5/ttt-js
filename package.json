@@ -1,0 +1,7 @@
+{
+	"name": "ttt-js",
+	"version": "1.0.0",
+	"Dependencies" : {
+		"jasmine": "2.4.1"
+	}
+}
