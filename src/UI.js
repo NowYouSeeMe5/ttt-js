@@ -1,21 +1,21 @@
 IO = require('../src/IO');
+Util = require('../src/Util');
 
 UI = {
 
   numberOfPlayersQuestion: "How many players: 0, 1, or 2?",
 
-  getNumberOfPlayers: function() {
+  getNumberOfPlayers: function(validNumbers) {
     IO.print(this.numberOfPlayersQuestion);
-
-    IO.getInput();
+    IO.getInput(validNumbers);
   },
 
-  printBoard: function() {
-
+  printBoard: function(board) {
+    var boardString = Util.boardToString(board);
+    IO.print(boardString);
   },
 
-  displayFinalMessage: function() {
-
+  printFinalMessage: function(winner) {
   }
 }
 

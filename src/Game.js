@@ -1,14 +1,14 @@
 AiPlayer = require('../src/AiPlayer');
-Board = require('../src/Board');
 Evaluator = require('../src/Evaluator');
-Game = require('../src/Game');
 HumanPlayer = require('../src/HumanPlayer');
 UI = require('../src/UI');
 
 var Game = {
 
-  setup: function() {
-    var numberOfPlayers = UI.getNumberOfPlayers();
+  validNumberOfPlayers: [0, 1, 2],
+
+  start: function() {
+    var numberOfPlayers = UI.getNumberOfPlayers(this.validNumberOfPlayers);
 
     var playerMoves = [];
 
@@ -35,7 +35,7 @@ var Game = {
       currentPlayer = (currentPlayer == 0 ? 1 : 0);
     }
 
-    UI.displayFinalMessage(board);
+    UI.printFinalMessage(board);
   },
 };
 

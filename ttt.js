@@ -1,3 +1,3 @@
-var Board = require('./src/board');
+var Game = require('./src/Game');
 
-console.log(Board.helloBoard());
+game.start();
