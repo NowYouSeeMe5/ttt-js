@@ -10,7 +10,7 @@ var Game = {
   setup: function() {
     var numberOfPlayers = UI.getNumberOfPlayers();
 
-    var playerMoves = []
+    var playerMoves = [];
 
     if (numberOfPlayers == 1) {
       playerMoves = [HumanPlayer.move, AiPlayer.move];
