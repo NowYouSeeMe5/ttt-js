@@ -1,7 +1,11 @@
 var Board = {
-  helloBoard: function() {
-    return "Hello Board";
+  newBoard: function() {
+
+  },
+
+  setSpace: function() {
+
   }
 }
 
-module.exports = Board
+module.exports = Board;

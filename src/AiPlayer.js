@@ -2,4 +2,4 @@ AiPlayer = {
   move: function() {}
 };
 
-module.exports = AiPlayer
+module.exports = AiPlayer;

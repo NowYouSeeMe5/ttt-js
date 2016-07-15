@@ -2,6 +2,14 @@ UI = {
 
   getNumberOfPlayers: function() {
 
+  },
+
+  printBoard: function() {
+
+  },
+
+  displayFinalMessage: function() {
+
   }
 }
 

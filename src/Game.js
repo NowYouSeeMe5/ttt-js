@@ -1,33 +1,42 @@
+AiPlayer = require('../src/AiPlayer');
+Board = require('../src/Board');
+Evaluator = require('../src/Evaluator');
 Game = require('../src/Game');
 HumanPlayer = require('../src/HumanPlayer');
-AiPlayer = require('../src/AiPlayer');
 UI = require('../src/UI');
 
 var Game = {
 
   setup: function() {
-    var that = this;
-
     var numberOfPlayers = UI.getNumberOfPlayers();
 
-    var player1Move = null;
-    var player2Move = null;
+    var playerMoves = []
 
     if (numberOfPlayers == 1) {
-      player1Move = HumanPlayer.move
-      player2Move = AiPlayer.move
+      playerMoves = [HumanPlayer.move, AiPlayer.move];
     } else if (numberOfPlayers == 2) {
-      player1Move = player2Move = HumanPlayer.move
+      playerMoves = [HumanPlayer.move, HumanPlayer.move];
     } else {
-      player1Move = player2Move = AiPlayer.move
+      playerMoves = [AiPlayer.move, AiPlayer.move];
     }
 
-    this.playGame(player1Move, player2Move);
+    this.play(playerMoves, Board.newBoard());
   },
 
-  playGame: function(player1Move, player2Move) {
+  play: function(playerMoves, board) {
+    currentPlayer = 0;
 
-  }
+    while (!Evaluator.isOver(board)) {
+      UI.printBoard(board);
+
+      move = playerMoves[currentPlayer](board);
+      board = Board.setSpace(move, currentPlayer);
+
+      currentPlayer = (currentPlayer == 0 ? 1 : 0);
+    }
+
+    UI.displayFinalMessage(board);
+  },
 };
 
-module.exports = Game
+module.exports = Game;
