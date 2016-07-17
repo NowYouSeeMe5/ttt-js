@@ -1,11 +1,13 @@
+prompt = require('prompt-sync').prompt;
+
 var IO = {
 
   print: function(message) {
-
+    console.log(message);
   },
 
-  getInput: function() {
-
+  prompt: function(message) {
+    return prompt(message);
   }
 }
 

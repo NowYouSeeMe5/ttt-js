@@ -36,7 +36,6 @@ describe("start", function() {
 });
 
 describe("play game", function() {
-
   var isOverLoops = 2;
 
   beforeEach(function() {
