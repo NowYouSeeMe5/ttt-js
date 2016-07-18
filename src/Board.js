@@ -1,10 +1,12 @@
 var Board = {
-  newBoard: function() {
-
+  newBoard: function(size) {
+    return Array(size*size).fill(0);
   },
 
-  setSpace: function() {
+  setSpace: function(board, playerPiece, position) {
+    board[position] = playerPiece;
 
+    return board;
   }
 }
 

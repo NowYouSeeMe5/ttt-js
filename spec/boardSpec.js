@@ -1,1 +1,0 @@
-Board = require('../src/board');
