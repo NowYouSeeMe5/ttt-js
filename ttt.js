@@ -1,3 +1,3 @@
 var Game = require('./src/Game');
 
-game.start();
+Game.start();

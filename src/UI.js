@@ -1,5 +1,6 @@
 IO = require('../src/IO');
 Util = require('../src/Util');
+Validator = require('../src/Validator');
 
 UI = {
 
@@ -22,7 +23,7 @@ UI = {
   },
 
   getNumberOfPlayers: function(validNumbers) {
-    return getValidInput(numberOfPlayersQuestion, validNumbers);
+    var input = this.getValidInput(this.numberOfPlayersQuestion, validNumbers);
   },
 
   printErrorMessage: function(validInput) {

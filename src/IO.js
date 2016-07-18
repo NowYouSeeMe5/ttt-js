@@ -1,4 +1,4 @@
-prompt = require('prompt-sync').prompt;
+prompt = require('prompt-sync')();
 
 var IO = {
 

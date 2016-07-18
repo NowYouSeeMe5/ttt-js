@@ -5,9 +5,10 @@ UI = require('../src/UI');
 
 var Game = {
 
-  validNumberOfPlayers: [0, 1, 2],
+  validNumberOfPlayers: ["0", "1", "2"],
 
   start: function() {
+
     var numberOfPlayers = UI.getNumberOfPlayers(this.validNumberOfPlayers);
 
     var playerMoves = [];
