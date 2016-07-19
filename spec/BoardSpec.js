@@ -30,5 +30,11 @@ describe("Board", function() {
 
       expect(newBoard[0]).toEqual("O");
     });
+
+    it("returns a new board without mutating the original board", function() {
+      var newBoard = Board.setSpace(board, "X", 0);
+
+      expect(board).not.toEqual(newBoard);
+    });
   });
 });

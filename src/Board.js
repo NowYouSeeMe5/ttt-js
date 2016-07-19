@@ -4,9 +4,11 @@ var Board = {
   },
 
   setSpace: function(board, playerPiece, position) {
-    board[position] = playerPiece;
+    var newBoard = board.slice();
 
-    return board;
+    newBoard[position] = playerPiece;
+
+    return newBoard;
   }
 }
 
