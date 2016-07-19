@@ -59,6 +59,16 @@ Evaluator = {
     }
 
     return player1Count == player2Count ? playerPieces[0] : playerPieces[1];
+  },
+
+  currentDepth: function(board) {
+    var zeroCount = 0;
+    for (var i = 0; i < board.length; i++) {
+      if (board[i] == 0) {
+        zeroCount++;
+      }
+    }
+    return zeroCount;
   }
 };
 
