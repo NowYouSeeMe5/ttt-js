@@ -11,7 +11,7 @@ Run `npm install` to install the testing framework [Jasmine](http://jasmine.gith
 
 #Run the game:
 
-Run the game with `node ttt.js`
+Run the game with `node ttt`
 
 #Run the specs:
 
