@@ -6,11 +6,11 @@ UI = require('../src/UI');
 var Game = {
 
   validNumberOfPlayers: ["0", "1", "2"],
+  gamePieces: ["X", "O"],
 
   start: function() {
-
-    var numberOfPlayers = UI.getNumberOfPlayers(this.validNumberOfPlayers);
-
+    var boardSize = 3;
+    var numberOfPlayers = UI.getNumberOfPlayers(UI.validNumberOfPlayers);
     var playerMoves = [];
 
     if (numberOfPlayers == 1) {
@@ -21,7 +21,7 @@ var Game = {
       playerMoves = [AiPlayer.move, AiPlayer.move];
     }
 
-    this.play(playerMoves, Board.newBoard());
+    Game.play(playerMoves, Board.newBoard(boardSize));
   },
 
   play: function(playerMoves, board) {
@@ -30,13 +30,13 @@ var Game = {
     while (!Evaluator.isOver(board)) {
       UI.printBoard(board);
 
-      move = playerMoves[currentPlayer](board);
-      board = Board.setSpace(move, currentPlayer);
+      var move = playerMoves[currentPlayer](board, Game.gamePieces);
+      board = Board.setSpace(board, move, Game.gamePieces[currentPlayer]);
 
       currentPlayer = (currentPlayer == 0 ? 1 : 0);
     }
 
-    UI.printFinalMessage(board);
+    UI.printFinalMessage(Game.gamePieces[currentPlayer]);
   },
 };
 

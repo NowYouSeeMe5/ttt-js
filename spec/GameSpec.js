@@ -15,7 +15,7 @@ describe("start", function() {
 
     Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([AiPlayer.move, AiPlayer.move], Board.newBoard());
+    expect(Game.play).toHaveBeenCalledWith([AiPlayer.move, AiPlayer.move], Board.newBoard(3));
   });
 
   it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
@@ -23,7 +23,7 @@ describe("start", function() {
 
     Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, AiPlayer.move], Board.newBoard());
+    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, AiPlayer.move], Board.newBoard(3));
   });
 
   it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
@@ -31,7 +31,7 @@ describe("start", function() {
 
     Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, HumanPlayer.move], Board.newBoard());
+    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, HumanPlayer.move], Board.newBoard(3));
   });
 });
 
@@ -53,14 +53,6 @@ describe("play game", function() {
     });
   });
 
-  it("prints the final game message if the game is over", function() {
-    isOverLoops = 0;
-
-    Game.play(null, "board");
-
-    expect(UI.printFinalMessage).toHaveBeenCalledWith("board");
-  });
-
   var test1 = function(board) { return 1; }
   var test2 = function(board) { return 2; }
 
@@ -71,15 +63,15 @@ describe("play game", function() {
 
     Game.play(testFunctions, null);
 
-    expect(Board.setSpace).toHaveBeenCalledWith(test1(), 0);
+    expect(Board.setSpace).toHaveBeenCalledWith(null, test1(), Game.gamePieces[0]);
   });
 
-  it("uses the move function that was originally in the second spot of the playersMoves array on the second loop to make a move on a board", function() {
+  it("uses the move function that is in the second spot of the playersMoves array on the second loop to make a move on a board", function() {
     isOverLoops = 2;
 
     Game.play(testFunctions, null);
 
-    expect(Board.setSpace.calls.argsFor(1)).toEqual([test2(), 1]);
+    expect(Board.setSpace.calls.argsFor(1)).toEqual([undefined, test2(), Game.gamePieces[1]]);
   });
 
   it("prints the board every time the game is not over", function() {
@@ -88,5 +80,21 @@ describe("play game", function() {
     Game.play(testFunctions, null);
 
     expect(UI.printBoard.calls.count()).toEqual(3);
+  });
+
+  it("prints the final game message with an X when it is X's turn", function() {
+    isOverLoops = 0;
+
+    Game.play(testFunctions, null);
+
+    expect(UI.printFinalMessage).toHaveBeenCalledWith("X");
+  });
+
+  it("prints the final game message with an O when it is O's turn", function() {
+    isOverLoops = 1;
+
+    Game.play(testFunctions, null);
+
+    expect(UI.printFinalMessage).toHaveBeenCalledWith("O");
   });
 });

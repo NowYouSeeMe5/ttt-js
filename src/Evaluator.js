@@ -1,6 +1,6 @@
 Evaluator = {
   isOver: function(board) {
-    if (this.isTieGame(board) || (this.winner(board) != 0)) {
+    if (Evaluator.isTieGame(board) || (Evaluator.winner(board) != 0)) {
       return true;
     }
     return false;
@@ -8,7 +8,7 @@ Evaluator = {
 
   isTieGame: function(board) {
     for(var i = 0; i < board.length; i++) {
-      if (board[i] == 0 || this.winner(board) != 0) {
+      if (board[i] == 0 || Evaluator.winner(board) != 0) {
         return false;
       }
     }

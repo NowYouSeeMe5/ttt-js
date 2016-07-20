@@ -19,20 +19,20 @@ describe("Board", function() {
     var board = Board.newBoard(3);
 
     it("returns a board with the first spot occupied by an 'X'", function() {
-      var newBoard = Board.setSpace(board, "X", 0);
+      var newBoard = Board.setSpace(board, 0, "X");
 
       expect(newBoard[0]).toEqual("X");
     });
 
     it("replaces whatever piece is in the spot trying to be set", function() {
-      var newBoard = Board.setSpace(board, "X", 0);
-      newBoard = Board.setSpace(board, "O", 0);
+      var newBoard = Board.setSpace(board, 0, "X");
+      newBoard = Board.setSpace(board, 0, "O");
 
       expect(newBoard[0]).toEqual("O");
     });
 
     it("returns a new board without mutating the original board", function() {
-      var newBoard = Board.setSpace(board, "X", 0);
+      var newBoard = Board.setSpace(board, 0, "X");
 
       expect(board).not.toEqual(newBoard);
     });

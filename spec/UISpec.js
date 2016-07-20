@@ -56,6 +56,44 @@ describe("UI", function() {
     });
   });
 
+  describe("Get number of players", function() {
+    it("calls getValidInput with the number of players question and the string version of the valid numbers", function() {
+      spyOn(UI, 'getValidInput');
+      var validPlayers = [0, 1, 2];
+
+      UI.getNumberOfPlayers(validPlayers);
+
+      expect(UI.getValidInput).toHaveBeenCalledWith(UI.numberOfPlayersQuestion, ["0", "1", "2"]);
+    });
+
+    it("converts the string input back to the expected int", function() {
+      spyOn(IO, 'prompt').and.returnValue("0");
+
+      var response = UI.getNumberOfPlayers(["0"]);
+
+      expect(response).toEqual(0);
+    });
+  });
+
+  describe("Get move", function() {
+    it("calls getValidInput with the get move question and the valid moves array each converted to a string", function() {
+      spyOn(UI, 'getValidInput');
+      var validMoves = [1, 3, 5, 7, 9];
+
+      UI.getMove(validMoves);
+
+      expect(UI.getValidInput).toHaveBeenCalledWith(UI.moveQuestion, ["1", "3", "5", "7", "9"]);
+    });
+
+    it("subtracts one from the input for human readability", function() {
+      spyOn(IO, 'prompt').and.returnValue("2");
+
+      var response = UI.getMove([2]);
+
+      expect(response).toEqual(1);
+    });
+  });
+
   describe("getValidInput", function() {
     var validInput = "valid-input";
     var invalidInput = "invalid-input";

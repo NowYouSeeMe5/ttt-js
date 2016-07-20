@@ -3,7 +3,7 @@ var Board = {
     return Array(size*size).fill(0);
   },
 
-  setSpace: function(board, playerPiece, position) {
+  setSpace: function(board, position, playerPiece) {
     var newBoard = board.slice();
 
     newBoard[position] = playerPiece;
