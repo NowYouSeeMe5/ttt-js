@@ -1,10 +1,7 @@
 Validator = {
 
   validate: function(input, validInput) {
-    if (validInput.indexOf(input) != -1) {
-      return true;
-    }
-    return false;
+    return validInput.indexOf(input) != -1;
   }
 }
 

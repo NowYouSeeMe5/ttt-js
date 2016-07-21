@@ -4,11 +4,12 @@ Validator = require('../src/Validator');
 
 UI = {
 
-  errorMessage: "Please select from the following: ",
+  errorMessage: "There was an error, please select from the following: ",
   numberOfPlayersQuestion: "How many players? ",
   tieMessage: "That's a nice looking tie!",
   winnerMessage: "Congratulations on your win, ",
   moveQuestion: "Please choose a move from the following: ",
+  prompt: " > ",
 
   printBoard: function(board) {
     var boardString = Util.boardToString(board);
@@ -40,11 +41,11 @@ UI = {
   },
 
   getValidInput: function(message, validInput) {
-    var input = IO.prompt(message + validInput);
+    var input = IO.prompt(message + validInput + UI.prompt);
 
     while(!Validator.validate(input, validInput)) {
       UI.printErrorMessage(validInput);
-      input = IO.prompt(message + validInput);
+      input = IO.prompt(message + validInput + UI.prompt);
     }
 
     return input;

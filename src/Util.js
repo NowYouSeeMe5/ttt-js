@@ -5,7 +5,7 @@ Util = {
   },
 
   boardToString: function(board) {
-    var size = this.boardSize(board);
+    var size = Util.boardSize(board);
     var boardString = "";
     var newLine = "\n";
 

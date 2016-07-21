@@ -130,13 +130,13 @@ describe("UI", function() {
       expect(IO.prompt.calls.count()).toEqual(3);
     });
 
-    it("calls prompt with the message and valid together", function() {
+    it("calls prompt with the message and valid input concatenated together", function() {
       promptLoops = 0;
 
       var message = "message";
       UI.getValidInput(message, [validInput]);
 
-      expect(IO.prompt).toHaveBeenCalledWith(message + validInput);
+      expect(IO.prompt).toHaveBeenCalledWith(message + validInput + UI.prompt);
     });
   });
 });
