@@ -55,15 +55,6 @@ AiPlayer = {
     return bestIndex;
   },
 
-  nextPlayer: function(currentPlayer, playerPieces) {
-    for (var i = 0; i < playerPieces.length; i++) {
-      if (playerPieces[i] != currentPlayer) {
-        return playerPieces[i];
-      }
-    }
-  },
-
-
   nextBoards: function(board, nextPlayer) {
     return board.map(function(piece, i) {
       if (piece == 0) {

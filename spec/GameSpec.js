@@ -4,97 +4,127 @@ Game = require('../src/Game');
 HumanPlayer = require('../src/HumanPlayer');
 UI = require('../src/UI');
 
-describe("start", function() {
+describe("Game", function() {
+  describe("start", function() {
 
-  beforeEach(function() {
-    spyOn(Game, 'play');
-  });
+    beforeEach(function() {
+      spyOn(Game, 'play');
+    });
 
-  it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
-    spyOn(UI, 'getNumberOfPlayers').and.returnValue(0);
+    it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
+      spyOn(UI, 'getNumberOfPlayers').and.returnValue(0);
 
-    Game.start();
+      Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([AiPlayer.move, AiPlayer.move], Board.newBoard(3));
-  });
+      expect(Game.play).toHaveBeenCalledWith([AiPlayer.move, AiPlayer.move], Board.newBoard(3));
+    });
 
-  it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
-    spyOn(UI, 'getNumberOfPlayers').and.returnValue(1);
+    it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
+      spyOn(UI, 'getNumberOfPlayers').and.returnValue(1);
 
-    Game.start();
+      Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, AiPlayer.move], Board.newBoard(3));
-  });
+      expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, AiPlayer.move], Board.newBoard(3));
+    });
 
-  it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
-    spyOn(UI, 'getNumberOfPlayers').and.returnValue(2);
+    it("sets a human player as player 1 and an ai player as player 2 when the input is 1", function() {
+      spyOn(UI, 'getNumberOfPlayers').and.returnValue(2);
 
-    Game.start();
+      Game.start();
 
-    expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, HumanPlayer.move], Board.newBoard(3));
-  });
-});
-
-describe("play game", function() {
-  var isOverLoops = 2;
-
-  beforeEach(function() {
-    spyOn(Board, 'setSpace');
-
-    spyOn(UI, 'printBoard');
-    spyOn(UI, 'printFinalMessage');
-
-    spyOn(Evaluator, 'isOver').and.callFake(function() {
-      if (isOverLoops > 0) {
-        isOverLoops--;
-        return false;
-      }
-      return true;
+      expect(Game.play).toHaveBeenCalledWith([HumanPlayer.move, HumanPlayer.move], Board.newBoard(3));
     });
   });
 
-  var test1 = function(board) { return 1; }
-  var test2 = function(board) { return 2; }
+  describe("play game", function() {
+    var isOverLoops = 2;
 
-  var testFunctions = [test1, test2];
+    beforeEach(function() {
+      spyOn(Board, 'setSpace');
 
-  it("uses the move function in the first spot of the playerMoves array on the first loop to make a move", function() {
-    isOverLoops = 1;
+      spyOn(Game, 'end');
 
-    Game.play(testFunctions, null);
+      spyOn(UI, 'printBoard');
+      spyOn(UI, 'printTieMessage');
+      spyOn(UI, 'printWinnerMessage');
 
-    expect(Board.setSpace).toHaveBeenCalledWith(null, test1(), Game.gamePieces[0]);
+      spyOn(Evaluator, 'isOver').and.callFake(function() {
+        if (isOverLoops > 0) {
+          isOverLoops--;
+          return false;
+        }
+        return true;
+      });
+    });
+
+    var test1 = function(board) { return 1; }
+    var test2 = function(board) { return 2; }
+
+    var testFunctions = [test1, test2];
+
+    it("uses the move function in the first spot of the playerMoves array on the first loop to make a move", function() {
+      isOverLoops = 1;
+
+      Game.play(testFunctions, null);
+
+      expect(Board.setSpace).toHaveBeenCalledWith(null, test1(), Game.gamePieces[0]);
+    });
+
+    it("uses the move function that is in the second spot of the playersMoves array on the second loop to make a move on a board", function() {
+      isOverLoops = 2;
+
+      Game.play(testFunctions, null);
+
+      expect(Board.setSpace.calls.argsFor(1)).toEqual([undefined, test2(), Game.gamePieces[1]]);
+    });
+
+    it("prints the board every time the game is not over plus once just before the final message", function() {
+      isOverLoops = 3;
+
+      Game.play(testFunctions, null);
+
+      expect(UI.printBoard.calls.count()).toEqual(4);
+    });
+
+    it("calls end with board", function() {
+      isOverLoops = 0;
+      var board = "board";
+
+      Game.play(testFunctions, board);
+
+      expect(Game.end).toHaveBeenCalledWith(board);
+    });
   });
 
-  it("uses the move function that is in the second spot of the playersMoves array on the second loop to make a move on a board", function() {
-    isOverLoops = 2;
+  describe("end", function() {
 
-    Game.play(testFunctions, null);
+    beforeEach(function() {
+      spyOn(UI, 'printWinnerMessage');
+      spyOn(UI, 'printTieMessage');
+    });
 
-    expect(Board.setSpace.calls.argsFor(1)).toEqual([undefined, test2(), Game.gamePieces[1]]);
-  });
+    it("prints the final game message with an X when someone wins and it is X's turn", function() {
+      var board = ["X", "X", "X", 0, 0, 0, 0, 0, 0];
 
-  it("prints the board every time the game is not over", function() {
-    isOverLoops = 3;
+      Game.end(board);
 
-    Game.play(testFunctions, null);
+      expect(UI.printWinnerMessage).toHaveBeenCalledWith("X");
+    });
 
-    expect(UI.printBoard.calls.count()).toEqual(3);
-  });
+    it("prints the final game message with an O when O wins", function() {
+      var board = ["O", "O", "O", 0, 0, 0, 0, 0, 0];
 
-  it("prints the final game message with an X when it is X's turn", function() {
-    isOverLoops = 0;
+      Game.end(board);
 
-    Game.play(testFunctions, null);
+      expect(UI.printWinnerMessage).toHaveBeenCalledWith("O");
+    });
 
-    expect(UI.printFinalMessage).toHaveBeenCalledWith("X");
-  });
+    it("prints the tie game message if the game is over and there is no winner", function() {
+      var board = ["X", "O", "X", "O", "X", "O", "O", "X", "O"];
 
-  it("prints the final game message with an O when it is O's turn", function() {
-    isOverLoops = 1;
+      Game.end(board);
 
-    Game.play(testFunctions, null);
-
-    expect(UI.printFinalMessage).toHaveBeenCalledWith("O");
+      expect(UI.printTieMessage.calls.count()).toEqual(1);
+    });
   });
 });

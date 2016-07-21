@@ -10,7 +10,7 @@ var Game = {
 
   start: function() {
     var boardSize = 3;
-    var numberOfPlayers = UI.getNumberOfPlayers(UI.validNumberOfPlayers);
+    var numberOfPlayers = UI.getNumberOfPlayers(Game.validNumberOfPlayers);
     var playerMoves = [];
 
     if (numberOfPlayers == 1) {
@@ -36,8 +36,20 @@ var Game = {
       currentPlayer = (currentPlayer == 0 ? 1 : 0);
     }
 
-    UI.printFinalMessage(Game.gamePieces[currentPlayer]);
+    UI.printBoard(board);
+
+    Game.end(board);
   },
+
+  end: function(board) {
+    var winner = Evaluator.winner(board);
+
+    if (winner != 0) {
+      UI.printWinnerMessage(winner);
+    } else {
+      UI.printTieMessage();
+    }
+  }
 };
 
 module.exports = Game;

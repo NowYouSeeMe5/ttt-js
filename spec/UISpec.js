@@ -4,7 +4,6 @@ Util = require('../src/Util');
 Validator = require('../src/Validator');
 
 describe("UI", function() {
-
   beforeEach(function() {
     spyOn(IO, 'print');
   });
@@ -40,7 +39,7 @@ describe("UI", function() {
   describe("Print final message", function() {
     it("prints the winning game message with the winning piece interpolated as part of the message", function() {
 
-      UI.printFinalMessage("X");
+      UI.printWinnerMessage("X");
 
       var expectedString = UI.winnerMessage + "X";
       expect(IO.print).toHaveBeenCalledWith(expectedString);

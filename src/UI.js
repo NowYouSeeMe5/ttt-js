@@ -15,7 +15,7 @@ UI = {
     IO.print(boardString);
   },
 
-  printFinalMessage: function(winner) {
+  printWinnerMessage: function(winner) {
     IO.print(UI.winnerMessage + winner);
   },
 
