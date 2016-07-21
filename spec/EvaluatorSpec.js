@@ -1,7 +1,6 @@
 Evaluator = require('../src/Evaluator');
 
 describe("Evaluator", function() {
-
   describe("is over", function() {
     it("is not over when there are empty spaces and nobody has won", function() {
       var notOver = ["X", "O", 0, 0, 0, "X", 0, 0, "O"];
@@ -99,12 +98,12 @@ describe("Evaluator", function() {
   });
 
   describe("current depth", function() {
-    it("returns 5 when there are 5 spaces left", function() {
+    it("returns 4 when 4 spaces are taken in a 3X3 board", function() {
       var board = ["X", "O", 0, "O", "X", 0, 0, 0, 0];
 
       currentDepth = Evaluator.currentDepth(board);
 
-      expect(currentDepth).toEqual(5);
+      expect(currentDepth).toEqual(4);
     });
   });
 });

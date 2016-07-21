@@ -62,7 +62,7 @@ Evaluator = {
   },
 
   currentDepth: function(board) {
-    var zeroCount = 0;
+    var zeroCount = -1;
     for (var i = 0; i < board.length; i++) {
       if (board[i] == 0) {
         zeroCount++;
