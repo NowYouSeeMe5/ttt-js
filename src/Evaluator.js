@@ -20,7 +20,6 @@ Evaluator = {
                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
                    [0, 4, 8], [2, 4, 6]];
 
-
     var sliceBoard = function(winner) {
       return winner.map(function(index) {
         return board[index];
@@ -36,7 +35,6 @@ Evaluator = {
     var boardSlices = winners.map(function(winner) {
        return sliceBoard(winner);
     });
-
 
     for (var i = 0; i < boardSlices.length; i++) {
       if (allTheSame(boardSlices[i]) && boardSlices[i][0] != 0) {
